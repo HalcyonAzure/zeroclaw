@@ -3517,11 +3517,6 @@ fn setup_channels() -> Result<ChannelsConfig> {
                     }
                 }
 
-                let verification_token: String = Input::new()
-                    .with_prompt("  Verification Token (optional, for Webhook mode)")
-                    .allow_empty(true)
-                    .interact_text()?;
-
                 let receive_mode_choice = Select::new()
                     .with_prompt("  Receive Mode")
                     .items([
@@ -3535,6 +3530,20 @@ fn setup_channels() -> Result<ChannelsConfig> {
                     LarkReceiveMode::Websocket
                 } else {
                     LarkReceiveMode::Webhook
+                };
+
+                let verification_token = if receive_mode == LarkReceiveMode::Webhook {
+                    let token: String = Input::new()
+                        .with_prompt("  Verification Token (optional, for Webhook mode)")
+                        .allow_empty(true)
+                        .interact_text()?;
+                    if token.is_empty() {
+                        None
+                    } else {
+                        Some(token)
+                    }
+                } else {
+                    None
                 };
 
                 let port = if receive_mode == LarkReceiveMode::Webhook {
@@ -3561,11 +3570,7 @@ fn setup_channels() -> Result<ChannelsConfig> {
                 config.lark = Some(LarkConfig {
                     app_id,
                     app_secret,
-                    verification_token: if verification_token.is_empty() {
-                        None
-                    } else {
-                        Some(verification_token)
-                    },
+                    verification_token,
                     encrypt_key: None,
                     allowed_users,
                     use_feishu,
