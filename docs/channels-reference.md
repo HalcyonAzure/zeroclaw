@@ -29,7 +29,7 @@ zeroclaw channel bind-telegram <IDENTITY>
 | `WhatsApp` | `[channels_config.whatsapp]` | `allowed_numbers` | `zeroclaw onboard` |
 | `Email` | `[channels_config.email]` | `allowed_senders` | Manual config |
 | `IRC` | `[channels_config.irc]` | `allowed_users` | `zeroclaw onboard` |
-| `Lark` | `[channels_config.lark]` | `allowed_users` | Manual config |
+| `Lark` | `[channels_config.lark]` | `allowed_users` | `zeroclaw onboard` |
 | `DingTalk` | `[channels_config.dingtalk]` | `allowed_users` | `zeroclaw onboard` |
 | `QQ` | `[channels_config.qq]` | `allowed_users` | `zeroclaw onboard` |
 
